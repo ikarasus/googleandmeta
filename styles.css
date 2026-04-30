@@ -1,0 +1,645 @@
+/* ==========================================================================
+   Digital Ads ROI Calculator — styles.css
+   ========================================================================== */
+
+/* ── Custom Properties ────────────────────────────────────────────────────── */
+:root {
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Surfaces */
+  --bg:             #F5F5F0;
+  --surface:        #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --surface-muted:  #F8F8F5;
+
+  /* Borders */
+  --border:       #E6E6E0;
+  --border-light: #EFEFEA;
+
+  /* Text */
+  --text-1: #111110;
+  --text-2: #6B6B66;
+  --text-3: #A8A8A2;
+
+  /* Accents */
+  --accent-google: #185FA5;
+  --accent-meta:   #533AB7;
+
+  /* Semantic — success */
+  --success-bg:     #F0FDF4;
+  --success-border: #BBF7D0;
+  --success-text:   #15803D;
+  --success-icon:   #22C55E;
+
+  /* Semantic — warning */
+  --warning-bg:     #FFFBEB;
+  --warning-border: #FDE68A;
+  --warning-text:   #92400E;
+  --warning-icon:   #F59E0B;
+
+  /* Semantic — danger */
+  --danger-bg:     #FFF1F2;
+  --danger-border: #FECDD3;
+  --danger-text:   #9F1239;
+  --danger-icon:   #EF4444;
+
+  /* Chart colours */
+  --chart-budget:  #6B7280;
+  --chart-revenue: #3B82F6;
+  --chart-profit:  #22C55E;
+  --chart-loss:    #EF4444;
+
+  /* Radii */
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  16px;
+  --r-xl:  22px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.09), 0 1px 4px rgba(0,0,0,.05);
+
+  /* Spacing scale */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-7:  28px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+}
+
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* ── Page shell ───────────────────────────────────────────────────────────── */
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: var(--sp-8) var(--sp-6) var(--sp-12);
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.header {
+  margin-bottom: var(--sp-7);
+}
+
+.header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.header-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+}
+
+.badge--google { background: #EAF2FF; color: #185FA5; }
+.badge--meta   { background: #F0EDFF; color: #533AB7; }
+
+.badge-sep {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  color: var(--text-1);
+  margin-bottom: var(--sp-2);
+}
+
+.header p {
+  font-size: 14px;
+  color: var(--text-2);
+  max-width: 460px;
+}
+
+/* ── Download button ──────────────────────────────────────────────────────── */
+.btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 10px 20px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--text-1);
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity .15s, transform .12s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.btn-pdf:hover  { opacity: .84; }
+.btn-pdf:active { transform: scale(.97); opacity: .9; }
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+}
+
+.btn-pdf.loading .btn-icon    { display: none; }
+.btn-pdf.loading .btn-spinner { display: block; }
+.btn-pdf.loading              { opacity: .7; pointer-events: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Calculator card ──────────────────────────────────────────────────────── */
+.calculator-card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 var(--sp-6);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 15px var(--sp-5);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+.tab:hover { color: var(--text-1); }
+
+.tab--active { font-weight: 600; color: var(--text-1); }
+.tab--active#tab-google { border-bottom-color: var(--accent-google); }
+.tab--active#tab-meta   { border-bottom-color: var(--accent-meta); }
+
+.tab-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Main grid ────────────────────────────────────────────────────────────── */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+}
+
+@media (max-width: 680px) {
+  .calc-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ───────────────────────────────────────────────────────────────── */
+.panel { padding: var(--sp-7); }
+
+.inputs-panel {
+  border-right: 1px solid var(--border-light);
+  background: var(--surface-muted);
+}
+
+@media (max-width: 680px) {
+  .inputs-panel { border-right: none; border-bottom: 1px solid var(--border-light); }
+}
+
+.panel-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--sp-6);
+}
+
+/* ── Field group ──────────────────────────────────────────────────────────── */
+.field-group { display: flex; flex-direction: column; gap: var(--sp-1); }
+
+.field {
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.field--last { border-bottom: none; }
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-2);
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.field-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Range slider ─────────────────────────────────────────────────────────── */
+.slider-track-wrap { position: relative; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  display: block;
+  /* filled track colour via JS-driven gradient */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--text-1);
+  cursor: grab;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0,0,0,.1);
+  transition: transform .12s, box-shadow .12s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover  { transform: scale(1.18); }
+input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.08); }
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--text-1);
+  cursor: grab;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0,0,0,.1);
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--accent-google);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.field-range-hint {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--sp-2);
+}
+
+.field-range-hint span {
+  font-size: 10px;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Metric cards ─────────────────────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.metric-card {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  transition: border-color .15s;
+}
+
+.metric-card:hover { border-color: var(--border); }
+
+.metric-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--sp-1);
+}
+
+.metric-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.metric-value--sm { font-size: 16px; }
+
+/* ── ROI card ─────────────────────────────────────────────────────────────── */
+.roi-card {
+  background: var(--text-1);
+  border-radius: var(--r-md);
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background .3s;
+}
+
+.roi-card-inner { position: relative; z-index: 1; }
+
+.roi-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: var(--sp-2);
+}
+
+.roi-number {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: var(--sp-2);
+  font-variant-numeric: tabular-nums;
+  transition: color .25s;
+}
+
+.roi-roas {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  font-variant-numeric: tabular-nums;
+}
+
+.roi-bg-text {
+  position: absolute;
+  bottom: -14px;
+  right: 10px;
+  font-size: 92px;
+  font-weight: 800;
+  letter-spacing: -.06em;
+  color: rgba(255,255,255,.06);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+}
+
+/* ── Assessment ───────────────────────────────────────────────────────────── */
+.assessment-wrap {
+  padding: 0 var(--sp-7) var(--sp-6);
+}
+
+.assessment {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  border: 1px solid;
+  transition: background .25s, border-color .25s;
+}
+
+.assessment--success { background: var(--success-bg); border-color: var(--success-border); }
+.assessment--warning { background: var(--warning-bg); border-color: var(--warning-border); }
+.assessment--danger  { background: var(--danger-bg);  border-color: var(--danger-border); }
+
+.assessment-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+
+.assessment-icon svg { width: 100%; height: 100%; }
+
+.assessment--success .assessment-icon { color: var(--success-icon); }
+.assessment--warning .assessment-icon { color: var(--warning-icon); }
+.assessment--danger  .assessment-icon { color: var(--danger-icon); }
+
+.assessment-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.assessment-body {
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.assessment--success .assessment-title,
+.assessment--success .assessment-body { color: var(--success-text); }
+.assessment--warning .assessment-title,
+.assessment--warning .assessment-body { color: var(--warning-text); }
+.assessment--danger  .assessment-title,
+.assessment--danger  .assessment-body { color: var(--danger-text); }
+
+/* ── Chart section ────────────────────────────────────────────────────────── */
+.chart-section {
+  padding: 0 var(--sp-7) var(--sp-7);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.chart-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: .02em;
+}
+
+.chart-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  transition: background .25s;
+}
+
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 230px;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+.footer {
+  margin-top: var(--sp-6);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Responsive tweaks ────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .page { padding: var(--sp-5) var(--sp-4) var(--sp-10); }
+  .header h1 { font-size: 22px; }
+  .panel { padding: var(--sp-5); }
+  .assessment-wrap,
+  .chart-section { padding-left: var(--sp-5); padding-right: var(--sp-5); }
+}
+
+/* ── Print / PDF styles ───────────────────────────────────────────────────── */
+@media print {
+  @page { margin: 18mm; size: A4; }
+
+  body { background: #fff; font-size: 13px; }
+
+  .page { padding: 0; max-width: 100%; }
+
+  .header h1 { font-size: 20px; }
+  .header p  { font-size: 12px; }
+
+  .btn-pdf { display: none !important; }
+
+  .calculator-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+
+  /* Hide interactive controls */
+  input[type="range"] { display: none; }
+  .field-range-hint   { display: none; }
+  .slider-track-wrap  { display: none; }
+
+  /* Show field as a summary row instead */
+  .field-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+  }
+
+  /* Tighten spacing for print */
+  .panel { padding: 16px 20px; }
+  .metrics-grid { gap: 6px; }
+  .metric-card  { padding: 10px 12px; }
+  .metric-value { font-size: 16px; }
+  .metric-value--sm { font-size: 14px; }
+
+  .roi-card   { padding: 14px; }
+  .roi-number { font-size: 44px; }
+
+  .assessment-wrap,
+  .chart-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .chart-wrap { height: 180px; }
+  .footer     { font-size: 10px; margin-top: 10px; }
+
+  /* Avoid page breaks inside cards */
+  .metric-card,
+  .roi-card,
+  .assessment,
+  .chart-section { page-break-inside: avoid; }
+}
